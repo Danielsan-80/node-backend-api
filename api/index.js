@@ -1,8 +1,12 @@
 const app = require('express')();
 
+app.get('/', (req, res)=>{
+    res.status(200).json({"message":"home"})
+})
+
 app.get('/api', (req, res) => {
 
-  res.status(200).json({"message":"backend noce api test"})
+  res.status(200).json({"message":"backend node api test"})
 
 });
 
