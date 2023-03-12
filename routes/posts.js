@@ -20,7 +20,7 @@ router.get('/', async (req, res)=>{
 
 router.get('/:id', async(req, res) => {
   const { _id } = req.params;
-  const post = await Post.findById({_id})
+  const post = await Post.findById(_id)
   res.status(200).json(post);
 });
 
