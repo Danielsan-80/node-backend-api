@@ -19,12 +19,6 @@ const postSchema = new Schema({
 
     tags: [String],
 
-    author: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    }
-
 
 }, {timestamps: true})
 
