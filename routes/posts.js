@@ -15,7 +15,7 @@ require ('dotenv').config()
     
 });
 
-    const posts = await Post.find({}).populate('author').sort({updatedAt: -1})
+    const posts = await Post.find({}).sort({updatedAt: -1})
 
     res.status(200).json(posts)
 
