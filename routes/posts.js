@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-require ('dotenv').config()
 const Post = require('../models/Post')
 
   router.get('/', async (req, res)=>{
