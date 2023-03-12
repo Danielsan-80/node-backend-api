@@ -6,4 +6,9 @@ router.get('/', (req, res)=>{
 
 })
 
+router.get('/:slug', (req, res) => {
+  const { slug } = req.params;
+  res.status(200).json({"post": slug});
+});
+
 module.exports = router

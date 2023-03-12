@@ -14,13 +14,4 @@ app.use('/api/posts', postRouter)
 // });
 
 
-// app.get('/api/:slug', (req, res) => {
-
-//   const { slug } = req.params;
-
-//   res.status(200).json({"Item": slug});
-
-// });
-
-
 module.exports = app;
