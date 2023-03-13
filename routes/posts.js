@@ -12,18 +12,41 @@ db.once("open", function () {
 
 router.get('/', async (req, res)=>{
 
+    try {
+      const posts = await Post.find({}).populate('author').sort({updatedAt: -1})
+      res.status(200).json(posts)
+    } catch (error) {
+      res.status(400).json({error: error.message})
+    }
     
-    const posts = await Post.find({}).populate('author').sort({updatedAt: -1})
-
-    res.status(200).json(posts)
 
 })
 
 router.get('/:id', async(req, res) => {
   const _id  = req.params.id;
-  const post = await Post.findById(_id)
-  res.status(200).json(post);
+
+  try {
+    const post = await Post.findById(_id).populate('author')
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(404).json({error: error.message})
+  }
+  
 });
+
+router.post('/', async(req, res)=>{
+  const {email, title, body, category, tags} = req.body
+
+    try {
+        const user = await User.findOne({email})
+        const authorId = user._id
+        const post = await Post.create({title, body, category, tags, author: authorId})
+        await User.findByIdAndUpdate(authorId, {$push: {posts: post._id}})
+        res.status(200).json({message: 'post created'})
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+})
 
 
 module.exports = router
