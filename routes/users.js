@@ -28,4 +28,18 @@ router.post('/register', async (req, res)=>{
     }
 })
 
+router.post('/login', async (req, res)=>{
+    const {email, password}= req.body
+
+    try {
+      const user = User.login(email, password)
+      const token = createToken(user._id)
+      res.status(200).json({name: user.name, email, token})
+    } catch (error) {
+      res.status(400).json({error: error.message})
+    }
+   
+
+})
+
 module.exports = router
