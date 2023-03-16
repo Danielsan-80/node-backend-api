@@ -32,7 +32,7 @@ router.post('/login', async (req, res)=>{
     const {email, password}= req.body
 
     try {
-      const user = User.login(email, password)
+      const user = await User.login(email, password)
       const token = createToken(user._id)
       res.status(200).json({name: user.name, email, token})
     } catch (error) {
