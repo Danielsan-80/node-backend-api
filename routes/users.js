@@ -5,7 +5,7 @@ const User = require('../models/User')
 const db = require('../db')
 
 const createToken = (_id) =>{
-  return jwt.sign(_id, process.env.SECRET, {expiresIn: '1d'})
+  return jwt.sign({_id}, process.env.SECRET, {expiresIn: '1d'})
 }
 
 db.on("error", console.error.bind(console, "connection error: "));
