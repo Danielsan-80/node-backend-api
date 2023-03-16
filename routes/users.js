@@ -1,8 +1,12 @@
 const express = require('express')
 const router = express.Router()
-const Post = require('../models/Post')
+const jwt = require('jsonwebtoken')
 const User = require('../models/User')
 const db = require('../db')
+
+const createToken = (_id) =>{
+  return jwt.sign(_id, process.env.SECRET, {expiresIn: '1d'})
+}
 
 db.on("error", console.error.bind(console, "connection error: "));
 db.once("open", function () {
@@ -10,8 +14,18 @@ db.once("open", function () {
 });
 
 
-router.get('/', (req, res)=>{
-    res.status(200).json({"message":"user router ok"})
+router.post('/register', async (req, res)=>{
+
+    const {name, email, password} = req.body
+
+    try {
+      const user = await User.register(name, email, password)
+      const token = createToken(user._id)
+      res.status(201).json({name, email, token})
+      
+    } catch (error) {
+      res.status(400).json({error: error.message})
+    }
 })
 
 module.exports = router
