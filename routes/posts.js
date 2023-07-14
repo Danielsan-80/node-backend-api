@@ -39,7 +39,7 @@ router.post('/', async(req, res)=>{
   
     try {
       
-      let img = {}
+      let img = req.files?.featuredImg || {}
 
         // if(!featuredImg){
         //     featuredImg = {}
