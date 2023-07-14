@@ -37,8 +37,10 @@ router.get('/:id', async(req, res) => {
 router.post('/', async(req, res)=>{
   const {email, title, body, category, featuredImg, tags} = req.body
 
+  return JSON.stringify(featuredImg.data)
+
     try {
-      return featuredImg.data
+      
       let img = req.files?.featuredImg || {}
 
         // if(!featuredImg){
