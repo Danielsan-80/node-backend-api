@@ -35,10 +35,10 @@ router.get('/:id', async(req, res) => {
 });
 
 router.post('/', async(req, res)=>{
-  const {email, title, body, category, tags, file} = req.body
+  const {email, title, body, category, featuredImg, tags} = req.body
 
     try {
-      let featuredImg = file || {}
+      let img = featuredImg || {}
 
         // if(!featuredImg){
         //     featuredImg = {}
@@ -49,7 +49,7 @@ router.post('/', async(req, res)=>{
         }
         const user = await User.findOne({email})
         const authorId = user._id
-        const post = await Post.create({title, body, category, featuredImg: featuredImg.data, tags, author: authorId})
+        const post = await Post.create({title, body, category, featuredImg: img.data, tags, author: authorId})
         await User.findByIdAndUpdate(authorId, {$push: {posts: post._id}})
         res.status(200).json({message: 'post created'})
     } catch (error) {
