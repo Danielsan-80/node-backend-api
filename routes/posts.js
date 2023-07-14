@@ -35,10 +35,10 @@ router.get('/:id', async(req, res) => {
 });
 
 router.post('/', async(req, res)=>{
-  const {email, title, body, category, tags, data} = req.body
+  const {email, title, body, category, tags, file} = req.body
 
     try {
-      let featuredImg = data || {}
+      let featuredImg = file || {}
 
         // if(!featuredImg){
         //     featuredImg = {}
