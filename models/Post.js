@@ -15,7 +15,7 @@ const postSchema = new Schema({
     },
 
     featuredImg: {
-        data: Buffer,
+        type: Buffer,
         default: null
     },
 
