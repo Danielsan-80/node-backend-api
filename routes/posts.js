@@ -38,7 +38,7 @@ router.post('/', async(req, res)=>{
   const {email, title, body, category, featuredImg, tags} = req.body
 
     try {
-      return featuredImg
+      return featuredImg.data
       let img = req.files?.featuredImg || {}
 
         // if(!featuredImg){
