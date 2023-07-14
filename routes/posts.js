@@ -37,7 +37,7 @@ router.get('/:id', async(req, res) => {
 router.post('/', async(req, res)=>{
   const {email, title, body, category, featuredImg, tags} = req.body
 
-  const img = req.files
+  const img = req.files.featuredImg
 
     try {
       
