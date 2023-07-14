@@ -36,8 +36,6 @@ router.get('/:id', async(req, res) => {
 
 router.post('/', async(req, res)=>{
   const {email, title, body, category, tags} = req.body
-
-    return req.body
   
 
     try {
