@@ -38,13 +38,13 @@ router.post('/', async(req, res)=>{
   const {email, title, body, category, featuredImg, tags} = req.body
 
     try {
-      let img = featuredImg || {}
+      let img = featuredImg.files[0] || {}
 
         // if(!featuredImg){
         //     featuredImg = {}
         // }
 
-        if(featuredImg?.size > 150000){
+        if(img?.size > 150000){
             throw Error('image files must be under 150kb')
         }
         const user = await User.findOne({email})
