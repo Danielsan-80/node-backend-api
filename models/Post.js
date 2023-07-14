@@ -14,6 +14,11 @@ const postSchema = new Schema({
         required: true
     },
 
+    featuredImg: {
+        type: Buffer,
+        default: null
+    },
+
     category: {
         type: String
     },

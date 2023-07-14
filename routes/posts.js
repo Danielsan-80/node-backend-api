@@ -38,9 +38,18 @@ router.post('/', async(req, res)=>{
   const {email, title, body, category, tags} = req.body
 
     try {
+      let featuredImg = req.files?.featured_img || {}
+
+        // if(!featuredImg){
+        //     featuredImg = {}
+        // }
+
+        if(featuredImg?.size > 150000){
+            throw Error('image files must be under 150kb')
+        }
         const user = await User.findOne({email})
         const authorId = user._id
-        const post = await Post.create({title, body, category, tags, author: authorId})
+        const post = await Post.create({title, body, category, featuredImg: featuredImg.data, tags, author: authorId})
         await User.findByIdAndUpdate(authorId, {$push: {posts: post._id}})
         res.status(200).json({message: 'post created'})
     } catch (error) {
