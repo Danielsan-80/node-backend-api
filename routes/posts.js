@@ -22,6 +22,30 @@ router.get('/', async (req, res)=>{
 
 })
 
+router.post('/search', async (req, res)=>{
+  try {
+      
+      let searchTerm = req.body.searchterm
+      const searchPurified = searchTerm.replace(/^a-zA-Z0-9 ]/g, '')
+
+      const posts = await Post.find({
+          $or: [
+              {title: {$regex: new RegExp(searchPurified, 'i')} },
+              {body: {$regex: new RegExp(searchPurified, 'i')} },
+          ]
+      }).populate('author')
+
+      if(posts.length<1){
+          throw Error('your search produced no results')
+      }
+      res.status(200).json(posts)
+      
+  } catch (error) {
+      res.status(404).json({error: error.message})
+      console.log(error)
+  }
+})
+
 router.get('/:id', async(req, res) => {
   const _id  = req.params.id;
 
@@ -35,7 +59,7 @@ router.get('/:id', async(req, res) => {
 });
 
 router.post('/', async(req, res)=>{
-  const {email, title, body, category, tags} = req.body
+  const {title, body, category, tags, email} = req.body
   
   
     try {
