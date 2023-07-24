@@ -25,7 +25,7 @@ router.get('/', async (req, res)=>{
 router.post('/search', async (req, res)=>{
   try {
       
-      let searchTerm = req.body.searchterm
+      let searchTerm = req.body.searchTerm
       const searchPurified = searchTerm.replace(/^a-zA-Z0-9 ]/g, '')
 
       const posts = await Post.find({
